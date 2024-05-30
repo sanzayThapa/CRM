@@ -1,47 +1,45 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import { Table } from './components/Table'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import './App.css';
+import CrmForm from './components/CrmForm';
+import { Table } from './components/Table';
+import axios from 'axios';
+import VendorForm from './components/VendorForm';
+import { VendorTable } from './components/VendorTable';
 
 
 function App() {
-  const [crm, setcrm] = useState("")
-  const [isLoading, setisLoading] = useState(true)
+  const [crm, setCrm] = useState([]);
+  const [vendor, setVendor] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect( () => {
-    fetchData()
-    console.log(crm)
-  },[] )
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
-    try{
-      const response = await axios.get("http://127.0.0.1:8000/api/crm/")
-      setcrm(response.data)
-      setisLoading(false)
+    try {
+      const crmResponse = await axios.get("http://127.0.0.1:8000/api/crm/");
+      setCrm(crmResponse.data);
 
-    }catch (error){
-      console.log(error);
+      const vendorResponse = await axios.get("http://127.0.0.1:8000/api/vendor/");
+      setVendor(vendorResponse.data);
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   }
-
-
   return (
     <div className='bg-indigo-100 min-h-screen'>
       <nav className='pt-8'>
-      <h1 className='text-5xl text-center pb-10'>crm Lists</h1>
+        <h1 className='text-5xl text-center pb-10'>CRM and Vendor Lists</h1>
       </nav>
-      <crmForm
-      setcrm={setcrm}
-      fetchData={fetchData}
-      />
-      <Table 
-      crm={crm}
-      setcrm={setcrm}
-      isLoading={isLoading}
-
-      />
+      <CrmForm setCrm={setCrm} fetchData={fetchData} />
+      <Table crm={crm} setCrm={setCrm} isLoading={isLoading} />
+      <VendorForm setVendor={setVendor} fetchData={fetchData} />
+      <VendorTable vendors={vendor} setVendor={setVendor} isLoading={isLoading} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
