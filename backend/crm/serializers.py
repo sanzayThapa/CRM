@@ -34,3 +34,8 @@ class crmSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.crm
         fields = '__all__'
+
+class VendorSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Vendor
+        fields = '__all__'

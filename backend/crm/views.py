@@ -24,3 +24,9 @@ from . import serializers
 class crmViewSet(viewsets.ModelViewSet):
     queryset = models.crm.objects.all()
     serializer_class = serializers.crmSerializers
+
+
+
+class VendorViewSet(viewsets.ModelViewSet):
+    queryset = models.Vendor.objects.all()
+    serializer_class = serializers.VendorSerializers

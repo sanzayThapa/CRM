@@ -40,3 +40,28 @@ class crm(models.Model):
 
     def __str__(self) -> str:
         return self.body
+
+
+from django.db import models
+
+class Vendor(models.Model):
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+        ('pending', 'Pending'),
+    ]
+
+    name = models.CharField(max_length=255)
+    website = models.URLField(max_length=200, blank=True, null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
+    link = models.URLField(max_length=200, blank=True, null=True)
+    documents = models.URLField(max_length=200, blank=True, null=True)
+    point_of_contact = models.CharField(max_length=255)
+    contract_end = models.DateField(null=True, blank=True)
+    contract = models.FileField(upload_to='contracts/', blank=True, null=True)
+    service_type = models.CharField(max_length=255)
+    last_maintained = models.DateField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

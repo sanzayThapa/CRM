@@ -15,7 +15,10 @@ from rest_framework import routers
 # ]
 router = routers.DefaultRouter()
 router.register('crm', views.crmViewSet, basename='crm')
+router.register('vendor', views.VendorViewSet, basename='vendor')
+
 
 urlpatterns = [
 ]
 urlpatterns += router.urls
+
