@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { MdOutlineDeleteSweep, MdEditNote } from "react-icons/md";
 
-export const VendorTable = ({ vendors, setVendors, isLoading }) => {
+export const VendorTable = ({ vendor, setvendor, isLoading }) => {
   const [editVendor, setEditVendor] = useState({
     id: null,
     name: '',
@@ -11,19 +11,19 @@ export const VendorTable = ({ vendors, setVendors, isLoading }) => {
     status: '',
     link: '',
     documents: '',
-    contact: '',
-    contractEnd: '',
-    contractFile: null,
-    serviceType: '',
-    lastMaintained: '',
+    point_of_contact: '',
+    contract_end: '',
+    contract: null,
+    service_type: '',
+    last_maintained: '',
     remarks: ''
   });
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/vendors/${id}/`);
-      const newList = vendors.filter(vendor => vendor.id !== id);
-      setVendors(newList);
+      await axios.delete(`http://localhost:8000/api/vendor/${id}/`);
+      const newList = vendor.filter(vendor => vendor.id !== id);
+      setvendor(newList);
     } catch (error) {
       console.log(error);
     }
@@ -31,9 +31,9 @@ export const VendorTable = ({ vendors, setVendors, isLoading }) => {
 
   const handleEdit = async (id, value) => {
     try {
-      const response = await axios.patch(`http://localhost:8000/api/vendors/${id}/`, value);
-      const newVendors = vendors.map(vendor => vendor.id === id ? response.data : vendor);
-      setVendors(newVendors);
+      const response = await axios.patch(`http://localhost:8000/api/vendor/${id}/`, value);
+      const newvendor = vendor.map(vendor => vendor.id === id ? response.data : vendor);
+      setvendor(newvendor);
     } catch (error) {
       console.log(error);
     }
@@ -64,11 +64,11 @@ export const VendorTable = ({ vendors, setVendors, isLoading }) => {
       status: '',
       link: '',
       documents: '',
-      contact: '',
-      contractEnd: '',
-      contractFile: null,
-      serviceType: '',
-      lastMaintained: '',
+      point_of_contact: '',
+      contract_end: '',
+      contract: null,
+      service_type: '',
+      last_maintained: '',
       remarks: ''
     });
   };
@@ -84,7 +84,7 @@ export const VendorTable = ({ vendors, setVendors, isLoading }) => {
               <th className='p-3 text-sm font-semibold tracking-wide text-left'>Status</th>
               <th className='p-3 text-sm font-semibold tracking-wide text-left'>Link</th>
               <th className='p-3 text-sm font-semibold tracking-wide text-left'>Documents</th>
-              <th className='p-3 text-sm font-semibold tracking-wide text-left'>Contact</th>
+              <th className='p-3 text-sm font-semibold tracking-wide text-left'>point_of_contact</th>
               <th className='p-3 text-sm font-semibold tracking-wide text-left'>Contract End</th>
               <th className='p-3 text-sm font-semibold tracking-wide text-left'>Contract File</th>
               <th className='p-3 text-sm font-semibold tracking-wide text-left'>Service Type</th>
@@ -99,18 +99,18 @@ export const VendorTable = ({ vendors, setVendors, isLoading }) => {
                 <td colSpan="12" className="text-center">Loading...</td>
               </tr>
             ) : (
-              vendors.map((vendor) => (
+              vendor.map((vendor) => (
                 <tr key={vendor.id} className='border-b border-black'>
                   <td className='p-3 text-sm'>{vendor.name}</td>
                   <td className='p-3 text-sm'>{vendor.website}</td>
                   <td className='p-3 text-sm'>{vendor.status}</td>
                   <td className='p-3 text-sm'>{vendor.link}</td>
                   <td className='p-3 text-sm'>{vendor.documents}</td>
-                  <td className='p-3 text-sm'>{vendor.contact}</td>
-                  <td className='p-3 text-sm'>{new Date(vendor.contractEnd).toLocaleDateString()}</td>
-                  <td className='p-3 text-sm'>{vendor.contractFile}</td>
-                  <td className='p-3 text-sm'>{vendor.serviceType}</td>
-                  <td className='p-3 text-sm'>{new Date(vendor.lastMaintained).toLocaleDateString()}</td>
+                  <td className='p-3 text-sm'>{vendor.point_of_contact}</td>
+                  <td className='p-3 text-sm'>{new Date(vendor.contract_end).toLocaleDateString()}</td>
+                  <td className='p-3 text-sm'>{vendor.contract}</td>
+                  <td className='p-3 text-sm'>{vendor.service_type}</td>
+                  <td className='p-3 text-sm'>{new Date(vendor.last_maintained).toLocaleDateString()}</td>
                   <td className='p-3 text-sm'>{vendor.remarks}</td>
                   <td className='p-3 text-sm font-medium flex space-x-2'>
                     <span className='text-xl cursor-pointer'>
@@ -171,40 +171,40 @@ export const VendorTable = ({ vendors, setVendors, isLoading }) => {
           />
           <input
             type="text"
-            placeholder="Contact"
-            name="contact"
-            value={editVendor.contact}
+            placeholder="point_of_contact"
+            name="point_of_contact"
+            value={editVendor.point_of_contact}
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs mt-2"
           />
           <input
             type="date"
             placeholder="Contract End"
-            name="contractEnd"
-            value={editVendor.contractEnd}
+            name="contract_end"
+            value={editVendor.contract_end}
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs mt-2"
           />
           <input
             type="file"
             placeholder="Contract File"
-            name="contractFile"
+            name="contract"
             onChange={handleFileChange}
             className="input input-bordered w-full max-w-xs mt-2"
           />
           <input
             type="text"
             placeholder="Service Type"
-            name="serviceType"
-            value={editVendor.serviceType}
+            name="service_type"
+            value={editVendor.service_type}
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs mt-2"
           />
           <input
             type="date"
             placeholder="Last Maintained"
-            name="lastMaintained"
-            value={editVendor.lastMaintained}
+            name="last_maintained"
+            value={editVendor.last_maintained}
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs mt-2"
           />

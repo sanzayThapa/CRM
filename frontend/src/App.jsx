@@ -37,7 +37,7 @@ function App() {
       <CrmForm setCrm={setCrm} fetchData={fetchData} />
       <Table crm={crm} setCrm={setCrm} isLoading={isLoading} />
       <VendorForm setVendor={setVendor} fetchData={fetchData} />
-      <VendorTable vendors={vendor} setVendor={setVendor} isLoading={isLoading} />
+      <VendorTable vendor={vendor} setVendor={setVendor} isLoading={isLoading} />
     </div>
   );
 }

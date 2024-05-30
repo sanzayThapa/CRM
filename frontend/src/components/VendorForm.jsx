@@ -8,7 +8,7 @@ const VendorForm = ({ setcrm, fetchData }) => {
     status: 'active',
     link: '',
     documents: '',
-    point_of_contact: '',
+    contact: '',
     contract_end: '',
     contract: null,
     service_type: '',
@@ -39,7 +39,7 @@ const VendorForm = ({ setcrm, fetchData }) => {
     }
 
     try {
-      await axios.post('http://localhost:8000/api/vendors/', formData, {
+      await axios.post('http://localhost:8000/api/vendor/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -50,7 +50,7 @@ const VendorForm = ({ setcrm, fetchData }) => {
         status: 'active',
         link: '',
         documents: '',
-        point_of_contact: '',
+        contact: '',
         contract_end: '',
         contract: null,
         service_type: '',
@@ -110,11 +110,11 @@ const VendorForm = ({ setcrm, fetchData }) => {
         />
         <input
           type="text"
-          name="point_of_contact"
+          name="contact"
           placeholder="Point of Contact"
           className="input input-accent w-full"
           onChange={handleChange}
-          value={newVendor.point_of_contact}
+          value={newVendor.contact}
         />
         <input
           type="date"
